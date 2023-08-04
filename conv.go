@@ -10,3 +10,16 @@ func ConvStrToI(s string) (i int) {
 	check(err)
 	return
 }
+
+func Unique(intSlice []int) (list []int) {
+	var keys = make(map[int]bool)
+
+	for _, entry := range intSlice {
+		if _, value := keys[entry]; !value {
+			keys[entry] = true
+			list = append(list, entry)
+		}
+	}
+
+	return
+}
