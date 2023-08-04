@@ -4,17 +4,11 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"runtime"
 	"strings"
 )
 
-var (
-	_, b, _, _ = runtime.Caller(0)
-	basepath   = filepath.Dir(b)
-)
-
-func ReadFileAsNumbers() (numbers []int) {
-	var lines []string = ReadFileAsLines()
+func ReadFileAsNumbers(baseDir string) (numbers []int) {
+	var lines []string = ReadFileAsLines(baseDir)
 
 	for _, string := range lines {
 		numbers = append(numbers, ConvStrToI(string))
@@ -23,8 +17,8 @@ func ReadFileAsNumbers() (numbers []int) {
 	return
 }
 
-func ReadFileAsBlocks() (blocks [][]string) {
-	var block_inputs []string = strings.Split(readFile(), "\n\n")
+func ReadFileAsBlocks(baseDir string) (blocks [][]string) {
+	var block_inputs []string = strings.Split(readFile(baseDir), "\n\n")
 
 	for _, block_input := range block_inputs {
 		blocks = append(blocks, strings.Split(block_input, "\n"))
@@ -32,12 +26,12 @@ func ReadFileAsBlocks() (blocks [][]string) {
 	return
 }
 
-func ReadFileAsLines() []string {
-	return strings.Split(readFile(), "\n")
+func ReadFileAsLines(baseDir string) []string {
+	return strings.Split(readFile(baseDir), "\n")
 }
 
-func readFile() string {
-	fullPath := fmt.Sprintf("%s/%s/%s", basepath, "../..", "input.txt")
+func readFile(baseDir string) string {
+	fullPath := fmt.Sprintf("%s/%s", baseDir, "input.txt")
 	absPath, _ := filepath.Abs(fullPath)
 
 	raw, err := os.ReadFile(absPath)
