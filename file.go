@@ -30,6 +30,10 @@ func ReadFileAsLines(baseDir string) []string {
 	return strings.Split(readFile(baseDir), "\n")
 }
 
+func ReadFileAsLine(baseDir string) string {
+	return readFile(baseDir)
+}
+
 func readFile(baseDir string) string {
 	fullPath := fmt.Sprintf("%s/%s", baseDir, "input.txt")
 	absPath, _ := filepath.Abs(fullPath)
